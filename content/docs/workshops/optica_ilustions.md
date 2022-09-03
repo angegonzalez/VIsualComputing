@@ -363,7 +363,7 @@ Para empezar se debe contar con una secuencia de fotogramas del objeto en movimi
 
 Posterior a ello cada imagen se deberá convertir en una silueta sombreada o en su defecto oscura, y por cada una de estas imágenes se tomarán las líneas sombreadas que se deseen. El número de lineas no es del todo relevantes, pero re requiere que el ancho y el espaciado de la cuadrícula logren captar las líneas de la imagen en determinado momento para que esta pueda simular el efecto de movimiento. Para mayor efecto de la ilusión estas imágenes puedes llevar colores y entre las lineas de las fotos se pueden generar sombreados para evitar el corte de las imágenes.
 
-{{< p5-global-iframe id="kk" ver="1.4.2" width="600" height="700" >}}
+{{< p5-global-iframe id="kk" ver="1.4.2" width="700" height="500" >}}
 
 let ancho = 10;
 let alturaMalla = 0.4;
@@ -372,7 +372,7 @@ let numeroBarras = 40;
 let equivalencia = 770
 function setup() {
 
-  createCanvas(100, 100);
+  createCanvas(700, 700);
 
   malla = new Malla(ancho,0,alturaMalla,0,distanciaEntreBarras,numeroBarras);
 }
@@ -388,54 +388,71 @@ function draw() {
   strokeWeight(2);
 
   //Se dibuja la máquina
-  rect(400,300,100,100);
-  rect(410,400,80,20);
+  rect(410,150,100,100);
+  rect(420,250,80,20);
+  
+  rect(420,270,1,70)
+  for (let i = 425; i< 495; i+=10){
+    rect(i,270,7,7);
+  }
+  for (let i = 425; i< 495; i+=10){
+    rect(i,278,5,30);
+  }
+  for (let i = 485; i>= 425; i-=10){
+    rect(i,309,3,15);
+  }
+  for (let i = 485; i>= 425; i-=10){
+    rect(i+2,324,1,15);
+  }
+  rect(495, 270, 5,5);
+  rect(494, 278, 5,30);
+  rect(494, 307, 3,15);
+  rect(497, 324, 1,15);
 
   //Se crea malla principal
-  for (let i = 100; i<=500; i+=10){
+  for (let i = 0; i<=500; i+=10){
     strokeWeight(4);
-    line(i, 500,i, 580);
+    line(i, 300,i, 370);
     strokeWeight(2);
   }
 
   //Se crea malla luego de pasar por la maquina
-  for (let i = 500; i<=1000; i+=10){
+  for (let i = 480; i<=1000; i+=10){
     strokeWeight(5);
-    line(i, 570,i, 580);
+    line(i, 360,i, 370);
     strokeWeight(1);
-    line(i+3, 568,i+3, 577);
-    line(i+4, 570,i+4, 580);
+    line(i+3, 358,i+3, 372);
+    line(i+4, 357,i+4, 372);
     strokeWeight(2);
 
   }
   
-  let x = 100;
-  let y = 500;
-  for(let i = 0; i<= 5; i+=1){
+  let x = 0;
+  let y = 300;
+  for(let i = 0; i<= 8; i+=1){
     strokeWeight(2);
-    line(x, y+5,x, y+75);
-    line(x-10, y+10,x-10, y+75);
+    line(x, y+5,x, y+73);
+    line(x-10, y+10,x-10, y+73);
 
-    line(x+2, y-2,x+2, y+78);
-    line(x-2, y-2,x-2, y+78);
+    line(x+2, y-2,x+2, y+76);
+    line(x-2, y-2,x-2, y+76);
 
-    line(x-13, y+8,x-13, y+77);
-    line(x-23, y+18,x-23, y+63);
-    line(x-12, y+25,x-12, y+60);
-    line(x-20, y+20,x-20, y+65);
-    line(x-22, y+16,x-22, y+61);
+    line(x-13, y+8,x-13, y+75);
+    line(x-23, y+18,x-23, y+61);
+    line(x-12, y+25,x-12, y+58);
+    line(x-20, y+20,x-20, y+63);
+    line(x-22, y+16,x-22, y+59);
 
-    line(x+12, y+25,x+12, y+60);
-    line(x+10, y+10,x+10, y+75);
-    line(x+13, y+8,x+13, y+77);
+    line(x+12, y+25,x+12, y+58);
+    line(x+10, y+10,x+10, y+73);
+    line(x+13, y+8,x+13, y+75);
     line(x+23, y+18,x+23, y+63);
     line(x+20, y+20,x+20, y+65);
     line(x+30, y+30,x+30, y+55);
 
     x+=60;  
   }
-  strokeWeight(6);
-  line(x+34, y,x+34, y-25);
+
   strokeWeight(2);
 
   
