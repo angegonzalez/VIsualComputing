@@ -482,3 +482,12 @@ class Malla {
 
 
 {{< /p5-global-iframe >}}
+
+# **Referencias**
+
+  *   [Constrast transfer function](https://en.wikipedia.org/wiki/Contrast_transfer_function)
+  *   [Anstis' Contour Adaptation](https://michaelbach.de/ot/lum-contourAdapt/index.html)
+  *   [Ilusión óptica de Munker-White: cuestión de percepciones](https://franciscotorreblanca.es/ilusion-optica-de-munker-white/)
+  *   [The confetti illusion](https://journalofillusion.net/index.php/joi/article/view/6152t)
+  * [Barrier-grid animation and stereography](https://en.wikipedia.org/wiki/Barrier-grid_animation_and_stereography)
+  *  [Barrier-Grid (or Picket-Fence) Animation](https://www.opticalillusion.net/optical-illusions/animated-moire-or-scanimation/)
