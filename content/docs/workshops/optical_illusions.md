@@ -22,10 +22,14 @@ Causadas por el orden psicológico de cada mente y lo que ven sus ojos.
 *   Ilusiones de distorsión:
 
 Son imágenes que usan técnicas de diseño para hacer objetos que poseen el mismo tamaño, verse distorsionados.
-:
+
+
+{{<hint info >}}
 ### **Dato curioso** ⚡
 
 La palabra *ilusión* viene del latín *illudere* que significa burlarse.
+
+{{< /hint >}}
 
 ## **Algunos ejemplos de ilusiones ópticas**
 
@@ -174,10 +178,13 @@ La base de esta ilusión óptica es ver como a partir de la aparición de cierto
 
 Aun independientemente del tipo de forma que se use para que se sobreponga a los objetos de igual color, el efecto será el mismo debido a que el cerebro desea llenar los espacios vacíos de entre las rayas y esto lo hace teniendo en cuenta los colores que tenga a su alrededor. Es importante destacar que estos colores deben poseer una luminancia mayor a la del color que poseen las formas, de esta manera se garantiza que el cerebro capte mejor las rayas más sobresalientes.
 
+
+{{<hint info >}}
 ### **Dato curioso** ⚡
 
 El color es una de las cosas más subjetivas que existen. Muchas personas no poseen la capacidad de diferencias entre tonos de colores en incluso colores.
 
+{{< /hint >}}
 
 ### **¡Pruébalo tú mismo!** 🎩 🪄
 Para quitar las rayas de colores y poder evidenciar el efecto de esta ilusión optica se debe mantener presionado el mouse. 
@@ -345,8 +352,11 @@ class Rayas{
 {{< /p5-global-iframe >}}
 
 
+{{<hint info >}}
 ### **Tip**  📣
 ¡Aléjate un poco para poder apreciar mejor el efecto de la ilusión!
+
+{{< /hint >}}
 
 3.   **Animación y estereografía de rejilla de barrera** 💃  🎥
 
