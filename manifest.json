@@ -1,6 +1,6 @@
 {
-  "name": "Workshops Solutions",
-  "short_name": "Workshops Solutions",
+  "name": "Visual Computing Notebook",
+  "short_name": "Visual Computing Notebook",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
