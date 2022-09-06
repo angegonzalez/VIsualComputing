@@ -4,6 +4,7 @@ let img;
 let w = 80;
 let selector;
 let entire = false;
+let toggleLumma = false;
 
 // It's possible to convolve the image with many different
 // matrices to produce different effects.
@@ -60,6 +61,10 @@ let actualMatrix = blur;
 
 function preload() {
   img = loadImage("/VisualComputing/sketches/assets/mandrill.png");
+  img2 = loadImage("/VisualComputing/sketches/assets/landscape.jpg");
+  img3 = loadImage("/VisualComputing/sketches/assets/landscape2.jpg");
+  img4 = loadImage("/VisualComputing/sketches/assets/landscape3.png");
+  img5 = loadImage("/VisualComputing/sketches/assets/landscape4.png");
 }
 
 function setup() {
@@ -68,7 +73,22 @@ function setup() {
   // pixelDensity(1) for not scaling pixel density to display density
   // for more information, check the reference of pixelDensity()
   pixelDensity(1);
+  drawSelector();
+  drawImageSelector();
+  drawMatrix();
+  drawButtonLumma();
+  changeMatrixInputValues(blur);
+}
 
+function draw() {
+  if (toggleLumma) {
+    drawLumma();
+  } else {
+    drawCustom(actualMatrix, 3);
+  }
+}
+
+function drawSelector() {
   // Mode selector
   selector = createSelect();
   selector.position(10, img.height + 20);
@@ -83,7 +103,28 @@ function setup() {
   selector.option("custom");
   selector.selected("blur");
   selector.changed(changeMatrix);
+}
 
+function drawImageSelector() {
+  // Mode selector
+  selector2 = createSelect();
+  selector2.position(130, img.height + 20);
+  selector2.option("mandrill");
+  selector2.option("landscape");
+  selector2.option("landscape 2");
+  selector2.option("landscape 3");
+  selector2.option("landscape 4");
+  selector2.selected("mandrill");
+  selector2.changed(changeImage);
+}
+
+function drawButtonLumma() {
+  button = createButton("Toggle to lumma");
+  button.position(240, img.height + 20);
+  button.mousePressed(handleButton);
+}
+
+function drawMatrix() {
   // Matrix inputs
   pos00 = createInput("");
   pos00.position(10, img.height + 80);
@@ -114,19 +155,24 @@ function setup() {
   pos22 = createInput("");
   pos22.position(70, img.height + 140);
   pos22.size(15);
-
-  changeMatrixInputValues(blur);
 }
 
-function draw() {
-  drawCustom(actualMatrix, 3);
-}
+// function changeRGB(){}
+
+// function changeHSB(){
+//   console.log(img.pixels)
+//   colorMode(HSB);
+//   console.log(img.pixels)
+// }
+
+// function changeHSL(){}
 
 function drawCustom(matrix, matrixsize) {
   //Set image as background
   background(img);
   //Load screen pixels
   loadPixels();
+  //print(pixels, img.pixels);
   // Calculate the small rectangle we will process
   let xstart = constrain(mouseX - w / 2, 0, img.width);
   let ystart = constrain(mouseY - w / 2, 0, img.height);
@@ -154,6 +200,35 @@ function drawCustom(matrix, matrixsize) {
   updatePixels();
 }
 
+function drawLumma() {
+  background(img);
+  loadPixels();
+  for (var y = 0; y < img.height; y++) {
+    for (var x = 0; x < img.width; x++) {
+      var index = (x + y * img.width) * 4;
+      var r = pixels[index + 0];
+      var g = pixels[index + 1];
+      var b = pixels[index + 2];
+      var a = pixels[index + 3];
+
+      var luma = r * 0.299 + g * 0.587 + b * 0.0114;
+
+      pixels[index + 0] = luma;
+      pixels[index + 1] = luma;
+      pixels[index + 2] = luma;
+    }
+  }
+  updatePixels();
+}
+
+function handleButton() {
+  if (toggleLumma) {
+    toggleLumma = false;
+  } else {
+    toggleLumma = true;
+  }
+}
+
 function keyPressed() {
   if (key === "a" && !entire) {
     entire = true;
@@ -162,7 +237,9 @@ function keyPressed() {
   }
 }
 
-function convolution(x, y, matrix, matrixsize, img) {
+function convolution(x, y, matrix, matrixsize, image) {
+  //console.log(image.pixels);
+  //loadPixels();
   let rtotal = 0.0;
   let gtotal = 0.0;
   let btotal = 0.0;
@@ -172,16 +249,16 @@ function convolution(x, y, matrix, matrixsize, img) {
       // What pixel are we testing
       const xloc = x + i - offset;
       const yloc = y + j - offset;
-      let loc = (xloc + img.width * yloc) * 4;
+      let loc = (xloc + image.width * yloc) * 4;
 
       // Make sure we haven't walked off our image, we could do better here
-      loc = constrain(loc, 0, img.pixels.length - 1);
+      loc = constrain(loc, 0, image.pixels.length - 1);
 
       // Calculate the convolution
       // retrieve RGB values
-      rtotal += img.pixels[loc] * matrix[i][j];
-      gtotal += img.pixels[loc + 1] * matrix[i][j];
-      btotal += img.pixels[loc + 2] * matrix[i][j];
+      rtotal += image.pixels[loc] * matrix[i][j];
+      gtotal += image.pixels[loc + 1] * matrix[i][j];
+      btotal += image.pixels[loc + 2] * matrix[i][j];
     }
   }
   // Make sure RGB is within range
@@ -237,6 +314,31 @@ function changeMatrix() {
       break;
 
     default:
+      break;
+  }
+}
+
+function changeImage() {
+  switch (selector2.value()) {
+    case "mandrill":
+      img = img;
+      img.loadPixels();
+      break;
+    case "landscape":
+      img = img2;
+      img.loadPixels();
+      break;
+    case "landscape 2":
+      img = img3;
+      img.loadPixels();
+      break;
+    case "landscape 3":
+      img = img4;
+      img.loadPixels();
+      break;
+    case "landscape 4":
+      img = img5;
+      img.loadPixels();
       break;
   }
 }
