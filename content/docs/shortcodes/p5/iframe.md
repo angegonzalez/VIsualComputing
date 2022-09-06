@@ -47,7 +47,7 @@ Example took from the [p5 examples](https://p5js.org/examples/sound-sound-effect
 # p5-global-iframe
 
 ```html
-{{</* p5-global-iframe id="sketchid" ver="1.4.2" lib1="https://cdntolib1/lib1.js" width="800" height="600" >}}
+{{</* p5-global-iframe id="sketchid" ver="1.4.2"  width="800" height="600" >}}
   // inline sketch code
 {{< /p5-global-iframe */>}}
 ```
