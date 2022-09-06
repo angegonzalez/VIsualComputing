@@ -3,26 +3,13 @@ title: Introduction
 type: docs
 ---
 
-# Visual Computing Workshops
+# Visual Computing Notebook
 
-Welcome to the [gohugo](https://gohugo.io/) template to create rich content [academic reports](https://www.wordy.com/writers-workshop/writing-an-academic-report/) having [p5.js](https://p5js.org/) sketches.
+Bienvenidos, este es nuestro cuaderno de talleres para la materia de Computación Visual, en donde damos solución a los retos planteados para la comprensión de los temas de la asignatura en el segundo semestre de 2022.
 
-## Basic configuration
+### **Autores**
 
-Install the [gohugo](https://gohugo.io/) [static site generator](https://jamstack.org/generators/) then:
-
-```sh
-$git clone https://github.com/VisualComputing/showcase
-$cd showcase
-$git submodule update --init --recursive
-$hugo server -D --disableFastRender
-```
-
-Deploy with `$git push` after redefined `baseURL` in `config.toml` which should point to your actual public remote.
-
-### **Authors**
-
-> Laura Valentina Ceballos, 
+> [Laura Valentina Ceballos Aguilar](mailto:lceballosa@unal.edu.co)
 
 > [Ángel Mateo González Bejarano](mailto:angegonzalez@unal.edu.co)
 

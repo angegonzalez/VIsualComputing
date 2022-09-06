@@ -1,6 +1,6 @@
 baseURL = "https://angegonzalez.github.io/VisualComputing"
-languageCode = "en-us"
-title = "Workshops Solutions"
+languageCode = "es-us"
+title = "Visual Computing Notebook"
 theme = 'book'
 
 # Book configuration
