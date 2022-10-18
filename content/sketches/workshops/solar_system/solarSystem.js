@@ -1,13 +1,17 @@
+
+// Code adapted from https://editor.p5js.org/cigno5/sketches/PqB9CEnBp
+
 let sun_texture;
 let mercury_texture;
 let venus_texture;
-let stars_texture;
+let stars;
 let earth_texture;
 let mars_texture;
 let jupiter_texture;
 let saturn_texture;
 let uranus_texture;
 let neptune_texture;
+let saturn_ring_texture;
 
 let orbit1;
 let orbit2;
@@ -38,7 +42,7 @@ let dotsData = [];
 let planetSelector;
 
 function preload() {
-  stars_texture = loadImage("/VisualComputing/sketches/assets/8k_stars.jpg");
+  stars = loadImage("/VisualComputing/sketches/assets/8k_stars.jpg");
   sun_texture = loadImage("/VisualComputing/sketches/assets/8k_sun.jpg");
   mercury_texture = loadImage(
     "/VisualComputing/sketches/assets/8k_mercury.jpg"
@@ -56,6 +60,7 @@ function preload() {
   neptune_texture = loadImage(
     "/VisualComputing/sketches/assets/2k_neptune.jpg"
   );
+  saturn_ring_texture = loadImage("/VisualComputing/sketches/assets/8k_saturn_ring_alpha.png")
 }
 
 function setup() {
@@ -82,8 +87,6 @@ function setup() {
   planetSelector.option("free");
   planetSelector.changed(travelPlanet);
 
-  console.log(easycam.getState());
-
   orbit1 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 600, 680);
   orbit1.obj.push(new Dot(0, 0.05, 600, 680, mercury_texture, 18));
   orbits.push(orbit1);
@@ -106,6 +109,8 @@ function setup() {
 
   orbit6 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 2600, 2680);
   orbit6.obj.push(new Dot(0, 0.1, 2600, 2680, saturn_texture, 63));
+  saturn_ring = new Ring(190, 0, 0.1, 2600, 2680, saturn_ring_texture );
+  orbit6.obj.push(saturn_ring);
   orbits.push(orbit6);
 
   orbit7 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 3000, 3000);
@@ -173,6 +178,8 @@ function draw() {
       //easycam.setRotation([0, 0, 1, 1]);
       break;
     default:
+      easycam.setCenter([0,0,0]);
+      break;
   }
 
   angleMode(DEGREES);
@@ -182,16 +189,10 @@ function draw() {
   pointLight(255, 255, 255, 0, 0, 0);
   push();
   noStroke();
-  //strokeWeight(0.5);
-  //stroke("purple");
   rotateZ(frameCount)
   texture(sun_texture);
   sphere(100);
-
   pop();
-  // push();
-  // position(10,10);
-  // grid({ style: Tree.SOLID });
   orbits.forEach((o) => o.draw());
 }
 
@@ -288,6 +289,36 @@ class Dot {
     return [this.x, this.y, 0];
   }
 }
+
+
+class Ring {
+  constructor(diameter, angle, speed, factorX, factorY, texture) {
+    this.id = ++dotId;
+    this.diameter = diameter;
+    this.angle = angle;
+    this.speed = speed;
+    this.factorX = factorX;
+    this.factorY = factorY;
+    this.texture = texture; //
+  }
+
+  draw() {
+    this.angle += this.speed;
+    this.x = (cos(this.angle) * this.factorX) / 2;
+    this.y = (sin(this.angle) * this.factorY) / 2;
+    push();
+    noStroke();
+    texture(this.texture);
+    circle(this.x, this.y, this.diameter);
+    pop();
+  }
+
+  getPosition() {
+    return [this.x, this.y, 0];
+  }
+
+}
+
 
 function travelPlanet(e) {
   followPlanet = e.target.value;
