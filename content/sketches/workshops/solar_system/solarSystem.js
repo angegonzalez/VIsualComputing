@@ -1,3 +1,5 @@
+const sun_size = 100
+
 let sun_texture;
 let mercury_texture;
 let venus_texture;
@@ -8,6 +10,9 @@ let jupiter_texture;
 let saturn_texture;
 let uranus_texture;
 let neptune_texture;
+let planets_font;
+
+
 
 let orbit1;
 let orbit2;
@@ -17,6 +22,16 @@ let orbit5;
 let orbit6;
 let orbit7;
 let orbit8;
+
+var planetsData;
+var uranusData;
+var neptureData;
+var jupiterData;
+var marsData;
+var mercurData;
+var saturnData;
+var earthData;
+var venusData;
 
 let newCenter;
 
@@ -37,6 +52,8 @@ let dotsData = [];
 
 let planetSelector;
 
+
+
 function preload() {
   stars_texture = loadImage("/VisualComputing/sketches/assets/8k_stars.jpg");
   sun_texture = loadImage("/VisualComputing/sketches/assets/8k_sun.jpg");
@@ -56,14 +73,17 @@ function preload() {
   neptune_texture = loadImage(
     "/VisualComputing/sketches/assets/2k_neptune.jpg"
   );
+  planets_font = loadFont("/VisualComputing/sketches/assets/Nasa.ttf")
 }
 
 function setup() {
+  loadJSON("https://api.le-systeme-solaire.net/rest.php/bodies?filter%5B%5D=isPlanet%2Ceq%2Ctrue", planets);
   createCanvas(700, 1000, WEBGL);
   textureMode(NORMAL);
+  textFont(planets_font);
   easycam = createEasyCam();
   easycam.setState({
-    distance: 350,
+    distance: 900,
     center: [0, 0, 0],
     rotation: [0.5, -0.15, 0.77, 0.3],
   });
@@ -82,42 +102,124 @@ function setup() {
   planetSelector.option("free");
   planetSelector.changed(travelPlanet);
 
+
   console.log(easycam.getState());
 
   orbit1 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 600, 680);
-  orbit1.obj.push(new Dot(0, 0.05, 600, 680, mercury_texture, 18));
+  orbit1.obj.push(new Dot(0, 0.05, 600, 680, mercury_texture, sun_size*0.18));
   orbits.push(orbit1);
 
-  orbit2 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 1000, 1080);
-  orbit2.obj.push(new Dot(0, 0.06, 1000, 1080, venus_texture, 25));
+  orbit2 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 900, 980);
+  orbit2.obj.push(new Dot(0, 0.06,  900, 980, venus_texture, sun_size*0.25));
   orbits.push(orbit2);
 
-  orbit3 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 1400, 1480);
-  orbit3.obj.push(new Dot(0, 0.07, 1400, 1480, earth_texture, 26));
+  orbit3 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 1500, 1580);
+  orbit3.obj.push(new Dot(0, 0.07, 1500, 1580, earth_texture, sun_size*0.26));
   orbits.push(orbit3);
 
-  orbit4 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 1800, 1880);
-  orbit4.obj.push(new Dot(0, 0.08, 1800, 1880, mars_texture, 20));
+  orbit4 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 1900, 1980);
+  orbit4.obj.push(new Dot(0, 0.08, 1900, 1980, mars_texture, sun_size*0.20));
   orbits.push(orbit4);
 
-  orbit5 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 2200, 2280);
-  orbit5.obj.push(new Dot(0, 0.09, 2200, 2280, jupiter_texture, 65));
+  orbit5 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 2700, 2780);
+  orbit5.obj.push(new Dot(0, 0.09, 2700, 2780, jupiter_texture, sun_size*0.65));
   orbits.push(orbit5);
 
-  orbit6 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 2600, 2680);
-  orbit6.obj.push(new Dot(0, 0.1, 2600, 2680, saturn_texture, 63));
+  orbit6 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 3000, 3080);
+  orbit6.obj.push(new Dot(0, 0.1,  3000, 3080, saturn_texture, sun_size*0.63));
   orbits.push(orbit6);
 
-  orbit7 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 3000, 3000);
-  orbit7.obj.push(new Dot(0, 0.11, 3000, 3080, uranus_texture, 32));
+  orbit7 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 4000, 4080);
+  orbit7.obj.push(new Dot(0, 0.11,  4000, 4080, uranus_texture, sun_size*0.32));
   orbits.push(orbit7);
 
-  orbit8 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 3400, 3480);
-  orbit8.obj.push(new Dot(0, 0.12, 3400, 3480, neptune_texture, 31));
+  orbit8 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 4900, 4980);
+  orbit8.obj.push(new Dot(0, 0.12, 4900, 4980, neptune_texture, sun_size*0.31));
   orbits.push(orbit8);
 }
 
+function planets(data){
+  print(data);
+  planetsData = data
+}
+
 function draw() {
+
+  //Data planets
+  if (planetsData){
+    uranusData = {
+      "name": planetsData.bodies[0].name,
+      "gravity": planetsData.bodies[0].gravity,
+      "discoveredBy": planetsData.bodies[0].discoveredBy,
+      "discoveryDate": planetsData.bodies[0].discoveryDate,
+      "meanRadius": planetsData.bodies[0].meanRadius,
+      "moons": planetsData.bodies[0].moons,
+      "discoveredBy": planetsData.bodies[0].gravity
+    }
+    neptureData = {
+      "name": planetsData.bodies[1].name,
+      "gravity": planetsData.bodies[1].gravity,
+      "discoveredBy": planetsData.bodies[1].discoveredBy,
+      "discoveryDate": planetsData.bodies[1].discoveryDate,
+      "meanRadius": planetsData.bodies[1].meanRadius,
+      "moons": planetsData.bodies[1].moons,
+      "discoveredBy": planetsData.bodies[1].gravity
+    }
+    jupiterData = {
+      "name": planetsData.bodies[2].name,
+      "gravity": planetsData.bodies[2].gravity,
+      "discoveredBy": planetsData.bodies[2].discoveredBy,
+      "discoveryDate": planetsData.bodies[2].discoveryDate,
+      "meanRadius": planetsData.bodies[2].meanRadius,
+      "moons": planetsData.bodies[2].moons,
+      "discoveredBy": planetsData.bodies[2].gravity
+    }
+    marsData = {
+      "name": planetsData.bodies[3].name,
+      "gravity": planetsData.bodies[3].gravity,
+      "discoveredBy": planetsData.bodies[3].discoveredBy,
+      "discoveryDate": planetsData.bodies[3].discoveryDate,
+      "meanRadius": planetsData.bodies[3].meanRadius,
+      "moons": planetsData.bodies[3].moons,
+      "discoveredBy": planetsData.bodies[3].gravity
+    }
+    mercurData = {
+      "name": planetsData.bodies[4].name,
+      "gravity": planetsData.bodies[4].gravity,
+      "discoveredBy": planetsData.bodies[4].discoveredBy,
+      "discoveryDate": planetsData.bodies[4].discoveryDate,
+      "meanRadius": planetsData.bodies[4].meanRadius,
+      "moons": planetsData.bodies[4].moons,
+      "discoveredBy": planetsData.bodies[4].gravity
+    }
+    saturnData = {
+      "name": planetsData.bodies[5].name,
+      "gravity": planetsData.bodies[5].gravity,
+      "discoveredBy": planetsData.bodies[5].discoveredBy,
+      "discoveryDate": planetsData.bodies[5].discoveryDate,
+      "meanRadius": planetsData.bodies[5].meanRadius,
+      "moons": planetsData.bodies[5].moons,
+      "discoveredBy": planetsData.bodies[5].gravity
+    }
+    earthData = {
+      "name": planetsData.bodies[6].name,
+      "gravity": planetsData.bodies[6].gravity,
+      "discoveredBy": planetsData.bodies[6].discoveredBy,
+      "discoveryDate": planetsData.bodies[6].discoveryDate,
+      "meanRadius": planetsData.bodies[6].meanRadius,
+      "moons": planetsData.bodies[6].moons,
+      "discoveredBy": planetsData.bodies[6].gravity
+    }
+    venusData = {
+      "name": planetsData.bodies[7].name,
+      "gravity": planetsData.bodies[7].gravity,
+      "discoveredBy": planetsData.bodies[7].discoveredBy,
+      "discoveryDate": planetsData.bodies[7].discoveryDate,
+      "meanRadius": planetsData.bodies[7].meanRadius,
+      "moons": planetsData.bodies[7].moons,
+      "discoveredBy": planetsData.bodies[7].gravity
+    }
+  }
   switch (followPlanet) {
     case "sun":
       easycam.setState({
@@ -176,7 +278,7 @@ function draw() {
   }
 
   angleMode(DEGREES);
-  background(0);
+  background(0,0,35,25);
 
   ambientLight(60, 60, 60);
   pointLight(255, 255, 255, 0, 0, 0);
@@ -184,7 +286,7 @@ function draw() {
   noStroke();
   //strokeWeight(0.5);
   //stroke("purple");
-  rotateZ(frameCount)
+  rotateZ(frameCount*0.6)
   texture(sun_texture);
   sphere(100);
 
@@ -192,7 +294,22 @@ function draw() {
   // push();
   // position(10,10);
   // grid({ style: Tree.SOLID });
-  orbits.forEach((o) => o.draw());
+  orbits.forEach(
+    (o) => o.draw()  
+  );
+
+  // orbits.forEach(element => {
+  //   push();
+  //   translate(element.position);
+  //   let picked = mousePicking({ size: element.size * 2.5, shape: Tree.CIRCLE });
+  //   fill('yellow');
+  //   noStroke();
+  //   strokeWeight(3);
+  //   stroke(picked ? 'red' : 'blue');
+  //   bullsEye({ size: element.size * 2.5, shape: Tree.CIRCLE });
+  //   pop();
+  // }
+  // );
 }
 
 class Orbit {
@@ -274,12 +391,15 @@ class Dot {
     this.x = (cos(this.angle) * this.factorX) / 2;
     this.y = (sin(this.angle) * this.factorY) / 2;
     push();
-
+    
+    text("HOLA", this.x-300, this.y-300 )
     translate(this.x, this.y);
     noStroke();
     texture(this.texture);
     rotateZ(frameCount)
     sphere(this.radius);
+    fill("white")
+   // 
 
     pop();
   }
@@ -291,4 +411,12 @@ class Dot {
 
 function travelPlanet(e) {
   followPlanet = e.target.value;
+  var p = planetInfo();
+  p.draw();
+}
+
+class planetInfo {
+  draw(){
+    rect(-20,-20, 50, 50)
+  }
 }
