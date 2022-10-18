@@ -1,4 +1,5 @@
 const sun_size = 100
+const earth_speed = 100
 
 // Code adapted from https://editor.p5js.org/cigno5/sketches/PqB9CEnBp
 
@@ -26,15 +27,15 @@ let orbit6;
 let orbit7;
 let orbit8;
 
-var planetsData;
-var uranusData;
-var neptureData;
-var jupiterData;
-var marsData;
-var mercurData;
-var saturnData;
-var earthData;
-var venusData;
+let planetsData;
+let uranusData;
+let neptureData;
+let jupiterData;
+let marsData;
+let mercurData;
+let saturnData;
+let earthData;
+let venusData;
 
 let newCenter;
 
@@ -110,37 +111,37 @@ function setup() {
   console.log(easycam.getState());
 
   orbit1 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 600, 680);
-  orbit1.obj.push(new Dot(0, 0.05, 600, 680, mercury_texture, sun_size*0.18));
+  orbit1.obj.push(new Dot(0, 0.05, 600, 680, mercury_texture, sun_size*0.18, "mercur"));
   orbits.push(orbit1);
 
   orbit2 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 900, 980);
-  orbit2.obj.push(new Dot(0, 0.06,  900, 980, venus_texture, sun_size*0.25));
+  orbit2.obj.push(new Dot(0, 0.048,  900, 980, venus_texture, sun_size*0.25,"venus"));
   orbits.push(orbit2);
 
   orbit3 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 1500, 1580);
-  orbit3.obj.push(new Dot(0, 0.07, 1500, 1580, earth_texture, sun_size*0.26));
+  orbit3.obj.push(new Dot(0, 0.075, 1500, 1580, earth_texture, sun_size*0.26, "earth"));
   orbits.push(orbit3);
 
   orbit4 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 1900, 1980);
-  orbit4.obj.push(new Dot(0, 0.08, 1900, 1980, mars_texture, sun_size*0.20));
+  orbit4.obj.push(new Dot(0, 0.06, 1900, 1980, mars_texture, sun_size*0.20, "mars"));
   orbits.push(orbit4);
 
   orbit5 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 2700, 2780);
-  orbit5.obj.push(new Dot(0, 0.09, 2700, 2780, jupiter_texture, sun_size*0.65));
+  orbit5.obj.push(new Dot(0, 0.15, 2700, 2780, jupiter_texture, sun_size*0.65, "jupiter"));
   orbits.push(orbit5);
 
   orbit6 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 3000, 3080);
-  orbit6.obj.push(new Dot(0, 0.1,  3000, 3080, saturn_texture, 63));
+  orbit6.obj.push(new Dot(0, 0.13,  3000, 3080, saturn_texture, sun_size*0.63, "saturn"));
   saturn_ring = new Ring(190, 0, 0.1,  3000, 3080, saturn_ring_texture );
   orbit6.obj.push(saturn_ring);
   orbits.push(orbit6);
 
   orbit7 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 4000, 4080);
-  orbit7.obj.push(new Dot(0, 0.11,  4000, 4080, uranus_texture, sun_size*0.32));
+  orbit7.obj.push(new Dot(0, 0.09,  4000, 4080, uranus_texture, sun_size*0.32, "uranus"));
   orbits.push(orbit7);
 
   orbit8 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 4900, 4980);
-  orbit8.obj.push(new Dot(0, 0.12, 4900, 4980, neptune_texture, sun_size*0.31));
+  orbit8.obj.push(new Dot(0, 0.08, 4900, 4980, neptune_texture, sun_size*0.31, "neptune"));
   orbits.push(orbit8);
 }
 
@@ -150,80 +151,71 @@ function planets(data){
 }
 
 function draw() {
-
   //Data planets
   if (planetsData){
     uranusData = {
-      "name": planetsData.bodies[0].name,
+      "name": planetsData.bodies[0].englishName,
       "gravity": planetsData.bodies[0].gravity,
       "discoveredBy": planetsData.bodies[0].discoveredBy,
       "discoveryDate": planetsData.bodies[0].discoveryDate,
       "meanRadius": planetsData.bodies[0].meanRadius,
       "moons": planetsData.bodies[0].moons,
-      "discoveredBy": planetsData.bodies[0].gravity
     }
     neptureData = {
-      "name": planetsData.bodies[1].name,
+      "name": planetsData.bodies[1].englishName,
       "gravity": planetsData.bodies[1].gravity,
       "discoveredBy": planetsData.bodies[1].discoveredBy,
       "discoveryDate": planetsData.bodies[1].discoveryDate,
       "meanRadius": planetsData.bodies[1].meanRadius,
       "moons": planetsData.bodies[1].moons,
-      "discoveredBy": planetsData.bodies[1].gravity
     }
     jupiterData = {
-      "name": planetsData.bodies[2].name,
+      "name": planetsData.bodies[2].englishName,
       "gravity": planetsData.bodies[2].gravity,
       "discoveredBy": planetsData.bodies[2].discoveredBy,
       "discoveryDate": planetsData.bodies[2].discoveryDate,
       "meanRadius": planetsData.bodies[2].meanRadius,
       "moons": planetsData.bodies[2].moons,
-      "discoveredBy": planetsData.bodies[2].gravity
     }
     marsData = {
-      "name": planetsData.bodies[3].name,
+      "name": planetsData.bodies[3].englishName,
       "gravity": planetsData.bodies[3].gravity,
       "discoveredBy": planetsData.bodies[3].discoveredBy,
       "discoveryDate": planetsData.bodies[3].discoveryDate,
       "meanRadius": planetsData.bodies[3].meanRadius,
       "moons": planetsData.bodies[3].moons,
-      "discoveredBy": planetsData.bodies[3].gravity
     }
     mercurData = {
-      "name": planetsData.bodies[4].name,
+      "name": planetsData.bodies[4].englishName,
       "gravity": planetsData.bodies[4].gravity,
       "discoveredBy": planetsData.bodies[4].discoveredBy,
       "discoveryDate": planetsData.bodies[4].discoveryDate,
       "meanRadius": planetsData.bodies[4].meanRadius,
       "moons": planetsData.bodies[4].moons,
-      "discoveredBy": planetsData.bodies[4].gravity
     }
     saturnData = {
-      "name": planetsData.bodies[5].name,
+      "name": planetsData.bodies[5].englishName,
       "gravity": planetsData.bodies[5].gravity,
       "discoveredBy": planetsData.bodies[5].discoveredBy,
       "discoveryDate": planetsData.bodies[5].discoveryDate,
       "meanRadius": planetsData.bodies[5].meanRadius,
       "moons": planetsData.bodies[5].moons,
-      "discoveredBy": planetsData.bodies[5].gravity
     }
     earthData = {
-      "name": planetsData.bodies[6].name,
+      "name": planetsData.bodies[6].englishName,
       "gravity": planetsData.bodies[6].gravity,
       "discoveredBy": planetsData.bodies[6].discoveredBy,
       "discoveryDate": planetsData.bodies[6].discoveryDate,
       "meanRadius": planetsData.bodies[6].meanRadius,
       "moons": planetsData.bodies[6].moons,
-      "discoveredBy": planetsData.bodies[6].gravity
     }
     venusData = {
-      "name": planetsData.bodies[7].name,
+      "name": planetsData.bodies[7].englishName,
       "gravity": planetsData.bodies[7].gravity,
       "discoveredBy": planetsData.bodies[7].discoveredBy,
       "discoveryDate": planetsData.bodies[7].discoveryDate,
       "meanRadius": planetsData.bodies[7].meanRadius,
       "moons": planetsData.bodies[7].moons,
-      "discoveredBy": planetsData.bodies[7].gravity
     }
   }
   switch (followPlanet) {
@@ -284,7 +276,6 @@ function draw() {
       easycam.setCenter([0,0,0]);
       break;
   }
-
   angleMode(DEGREES);
   background(0,0,35,25);
 
@@ -296,27 +287,23 @@ function draw() {
   //stroke("purple");
   rotateZ(frameCount*0.6)
   texture(sun_texture);
-  sphere(100);
+  sphere(150);
   pop();
   // push();
   // position(10,10);
   // grid({ style: Tree.SOLID });
   orbits.forEach(
-    (o) => o.draw()  
+    (o) =>{
+      o.draw() 
+    } 
   );
 
-  // orbits.forEach(element => {
-  //   push();
-  //   translate(element.position);
-  //   let picked = mousePicking({ size: element.size * 2.5, shape: Tree.CIRCLE });
-  //   fill('yellow');
-  //   noStroke();
-  //   strokeWeight(3);
-  //   stroke(picked ? 'red' : 'blue');
-  //   bullsEye({ size: element.size * 2.5, shape: Tree.CIRCLE });
-  //   pop();
-  // }
-  // );
+  // beginHUD()
+  // rect(355, 650, 300, 300, 70);
+  // text("hola", 0,0, 30,30)
+  // endHUD()
+
+   
 }
 
 class Orbit {
@@ -383,7 +370,7 @@ class Orbit {
 }
 
 class Dot {
-  constructor(angle, speed, factorX, factorY, texture, radius) {
+  constructor(angle, speed, factorX, factorY, texture, radius, name) {
     this.id = ++dotId;
     this.angle = angle;
     this.speed = speed;
@@ -391,6 +378,7 @@ class Dot {
     this.factorY = factorY;
     this.texture = texture;
     this.radius = radius;
+    this.name = name;
   }
 
   draw() {
@@ -399,16 +387,159 @@ class Dot {
     this.y = (sin(this.angle) * this.factorY) / 2;
     push();
     
-    text("HOLA", this.x-300, this.y-300 )
     translate(this.x, this.y);
     noStroke();
     texture(this.texture);
     rotateZ(frameCount)
-    sphere(this.radius);
+    var planet = sphere(this.radius);
     fill("white")
-   // 
-
     pop();
+    push();
+    var position = createVector(this.x, this.y, 0)
+    translate(position);
+    let picked = mousePicking({ size: this.radius*2, shape: Tree.CIRCLE });
+    fill(picked ? color(33,248,246): "blue");
+    if (picked){
+      if(this.name === "earth"){
+        beginHUD()
+
+        fill(color(255,255,255))
+        rect(355, 650, 300, 300, 50);
+        textSize(37);
+        text(earthData.name, 400,700)
+        textSize(17);
+        text("Gravity:", 400,750)
+        text(earthData.gravity, 510,750)
+        text("Mean radius:", 400,800)
+        text(earthData.meanRadius, 510,800)
+        text("Moons:", 400,850)
+        text(earthData.moons[0].moon, 510,850)
+        endHUD()
+      }else if(this.name === "mercur"){
+        beginHUD()
+
+        fill(color(255,255,255))
+        rect(355, 650, 300, 300, 50);
+        textSize(37);
+        text(mercurData.name, 400,700)
+        textSize(17);
+        text("Gravity:", 400,750)
+        text(mercurData.gravity, 510,750)
+        text("Mean Radius:", 400,790)
+        text(mercurData.meanRadius, 510,790)
+        text("Random fact:", 400,840)
+        text("It is the smallest planet", 400,870)
+        text("a littler bigger than moon", 400,900)
+
+        endHUD()
+
+      }else if(this.name === "venus"){
+        
+        beginHUD()
+        fill(color(255,255,255))
+        rect(355, 650, 300, 300, 50);
+        textSize(37);
+        text(venusData.name, 400,700)
+        textSize(17);
+        text("Gravity:", 400,750)
+        text(venusData.gravity, 510,750)
+        text("Mean Radius:", 400,790)
+        text(venusData.meanRadius, 510,790)
+        text("Random fact:", 400,840)
+        text("It is the hotest planet", 400,870)
+        text("with 470°c", 400,900)
+        endHUD()
+
+      }else if(this.name === "mars"){
+        beginHUD()
+        fill(color(255,255,255))
+        rect(355, 650, 300, 300, 50);
+        textSize(37);
+        text(marsData.name, 400,700)
+        textSize(17);
+        text("Gravity:", 400,750)
+        text(marsData.gravity, 510,750)
+        text("Mean Radius:", 400,790)
+        text(marsData.meanRadius, 510,790)
+        text("Random fact:", 400,840)
+        text("Theoretically you can sow", 400,870)
+        text("potatos due to minerals", 400,900)
+        endHUD()
+
+      }else if(this.name === "jupiter"){
+        beginHUD()
+        fill(color(255,255,255))
+        rect(355, 650, 300, 300, 50);
+        textSize(37);
+        text(jupiterData.name, 400,700)
+        textSize(17);
+        text("Gravity:", 400,750)
+        text(jupiterData.gravity, 510,750)
+        text("Mean Radius:", 400,790)
+        text(jupiterData.meanRadius, 510,790)
+        text("Random fact:", 400,840)
+        text("It is the fastest planet", 400,870)
+        text("one day takes 10 hours.", 400,900)
+        endHUD()
+
+      }else if(this.name === "saturn"){
+        beginHUD()
+        fill(color(255,255,255))
+        rect(355, 650, 300, 300, 50);
+        textSize(37);
+        text(saturnData.name, 400,700)
+        textSize(17);
+        text("Gravity:", 400,750)
+        text(saturnData.gravity, 510,750)
+        text("Mean Radius:", 400,790)
+        text(saturnData.meanRadius, 510,790)
+        text("Random fact:", 400,840)
+        text("It is the fastest planet", 400,870)
+        text("one day takes 10 hours.", 400,900) 
+        endHUD()
+
+      }else if(this.name === "uranus"){
+        beginHUD()
+        fill(color(255,255,255))
+        rect(355, 650, 300, 300, 50);
+        textSize(37);
+        text(uranusData.name, 400,700)
+        textSize(17);
+        text("Gravity:", 400,750)
+        text(uranusData.gravity, 510,750)
+        text("Mean Radius:", 400,790)
+        text(uranusData.meanRadius, 510,790)
+        text("Random fact:", 400,840)
+        text("It rains diamons!!", 400,870)
+        text("so sad that in earth", 400,900) 
+        text("rains water...", 400,930) 
+        endHUD()
+
+      }else if(this.name === "neptune"){
+        beginHUD()
+        fill(color(255,255,255))
+        rect(355, 650, 300, 300, 50);
+        textSize(37);
+        text(neptureData.name, 400,700)
+        textSize(17);
+        text("Gravity:", 400,750)
+        text(neptureData.gravity, 510,750)
+        text("Mean Radius:", 400,790)
+        text(neptureData.meanRadius, 510,790)
+        text("Random fact:", 400,840)
+        text("One year takes 165 years", 400,900)
+        
+        endHUD()
+
+      }
+
+    }
+    noStroke();
+    strokeWeight(1);
+    stroke(picked ?  color(33,248,246): "blue");
+    bullsEye({ size: this.radius*2, shape: Tree.CIRCLE });
+    pop();
+
   }
 
   getPosition() {
@@ -448,6 +579,7 @@ class Ring {
 
 function travelPlanet(e) {
   followPlanet = e.target.value;
+  
   var p = planetInfo();
   p.draw();
 }
