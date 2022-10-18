@@ -58,7 +58,7 @@ let planetSelector;
 
 
 function preload() {
-  stars = loadImage("/VisualComputing/sketches/assets/8k_stars.jpg");
+  stars = loadImage("/VisualComputing/sketches/assets/2k_stars_milky_way.jpg");
   sun_texture = loadImage("/VisualComputing/sketches/assets/8k_sun.jpg");
   mercury_texture = loadImage(
     "/VisualComputing/sketches/assets/8k_mercury.jpg"
@@ -235,58 +235,71 @@ function draw() {
       });
       break;
     case "mercury":
-      easycam.setDistance(150);
-      newCenter = orbit1.obj[0].getPosition();
-    //   newCenter[1] = newCenter[1]+50;
-    //   newCenter[1] = newCenter[2]+50;
-      easycam.setCenter(newCenter);
-      //easycam.setRotation([0, 0, 1, 1]);
+      easycam.setState({
+        distance: 250,
+        center: orbit1.obj[0].getPosition(),
+        rotation: [0.5, -0.15, 0.77, 0.3],
+      }, 200);
       break;
     case "venus":
-      easycam.setDistance(150);
-      newCenter = orbit1.obj[0].getPosition();
-      newCenter[1] = newCenter[1]+300;
-      //   newCenter[1] = newCenter[2]+50;
-      easycam.setCenter(newCenter);
-      //easycam.setRotation([0, 0, 1, 1]);
+      easycam.setState({
+        distance: 250,
+        center: orbit2.obj[0].getPosition(),
+        rotation: [0.5, -0.15, 0.77, 0.3],
+      }, 200);
       break;
     case "earth":
-      easycam.setDistance(150);
-      easycam.setCenter(orbit3.obj[0].getPosition());
-      //easycam.setRotation([0, 0, 1, 1]);
+      easycam.setState({
+        distance: 250,
+        center: orbit3.obj[0].getPosition(),
+        rotation: [0.5, -0.15, 0.77, 0.3],
+      }, 200);
       break;
     case "mars":
-      easycam.setDistance(150);
-      easycam.setCenter(orbit4.obj[0].getPosition());
-      //easycam.setRotation([0, 0, 1, 1]);
+      easycam.setState({
+        distance: 250,
+        center: orbit4.obj[0].getPosition(),
+        rotation: [0.5, -0.15, 0.77, 0.3],
+      }, 200);
       break;
     case "jupiter":
-      easycam.setDistance(150);
-      easycam.setCenter(orbit5.obj[0].getPosition());
-      //easycam.setRotation([0, 0, 1, 1]);
+      easycam.setState({
+        distance: 400,
+        center: orbit5.obj[0].getPosition(),
+        rotation: [0.5, -0.15, 0.77, 0.3],
+      }, 200);
       break;
     case "saturn":
-      easycam.setDistance(150);
-      easycam.setCenter(orbit6.obj[0].getPosition());
-      //easycam.setRotation([0, 0, 1, 1]);
+      easycam.setState({
+        distance: 400,
+        center: orbit6.obj[0].getPosition(),
+        rotation: [0.5, -0.15, 0.77, 0.3],
+      }, 100);
       break;
     case "uranus":
-      easycam.setDistance(150);
-      easycam.setCenter(orbit7.obj[0].getPosition());
-      //easycam.setRotation([0, 0, 1, 1]);
+      easycam.setState({
+        distance: 400,
+        center: orbit7.obj[0].getPosition(),
+        rotation: [0.5, -0.15, 0.77, 0.3],
+      }, 100);
       break;
     case "neptune":
-      easycam.setDistance(150);
-      easycam.setCenter(orbit8.obj[0].getPosition());
-      //easycam.setRotation([0, 0, 1, 1]);
+      easycam.setState({
+        distance: 250,
+        center: orbit8.obj[0].getPosition(),
+        rotation: [0.5, -0.15, 0.77, 0.3],
+      }, 100);
       break;
     default:
       easycam.setCenter([0,0,0]);
       break;
   }
 
+  beginHUD();
+  image(stars, 0, 0);
+  endHUD();
   angleMode(DEGREES);
-  background(0,0,35,25);
+  //background(0);
 
   ambientLight(60, 60, 60);
   pointLight(255, 255, 255, 0, 0, 0);
@@ -343,7 +356,7 @@ class Orbit {
 
     noFill();
     stroke("white");
-    strokeWeight(0.1);
+    strokeWeight(0.4);
     ellipse(0, 0, this.ellipseWidth, this.ellipseHeight, 50);
 
     for (let i = 0; i < this.obj.length; i++) {
