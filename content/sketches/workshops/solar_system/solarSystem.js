@@ -331,13 +331,6 @@ class Orbit {
 
   draw() {
     push();
-
-    if (rotating) {
-      this.currentRot[0] += this.rot[0];
-      this.currentRot[1] += this.rot[1];
-      this.currentRot[2] += this.rot[2];
-    }
-
     rotateZ(this.currentRot[2]);
     rotateY(this.currentRot[1]);
     rotateX(this.currentRot[0]);
@@ -405,7 +398,7 @@ class Dot {
     noStroke();
     texture(this.texture);
     rotateZ(frameCount)
-    var planet = sphere(this.radius);
+    sphere(this.radius);
     fill("white")
     pop();
     push();
