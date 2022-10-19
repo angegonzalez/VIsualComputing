@@ -412,7 +412,7 @@ class Dot {
     var position = createVector(this.x, this.y, 0)
     translate(position);
     let picked = mousePicking({ size: this.radius*2, shape: Tree.CIRCLE });
-    fill(picked ? color(33,248,246): "blue");
+    fill(picked ? color(33,248,246): 255,255,255,10);
     if (picked){
       if(this.name === "earth"){
         beginHUD()
@@ -549,8 +549,8 @@ class Dot {
 
     }
     noStroke();
-    strokeWeight(1);
-    stroke(picked ?  color(33,248,246): "blue");
+    strokeWeight(0);
+    stroke(picked ?  color(33,248,246): 255,255,255,50);
     bullsEye({ size: this.radius*2, shape: Tree.CIRCLE });
     pop();
 
