@@ -131,8 +131,8 @@ function setup() {
   orbits.push(orbit5);
 
   orbit6 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 3000, 3080);
-  orbit6.obj.push(new Dot(0, 0.13,  3000, 3080, saturn_texture, sun_size*0.63, "saturn"));
   saturn_ring = new Ring(190, 0, 0.1,  3000, 3080, saturn_ring_texture );
+  orbit6.obj.push(new Dot(0, 0.13,  3000, 3080, saturn_texture, sun_size*0.63, "saturn"));
   orbit6.obj.push(saturn_ring);
   orbits.push(orbit6);
 
