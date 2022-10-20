@@ -1,4 +1,4 @@
-const sun_size = 70
+const sun_size = 160
 const earth_speed = 100
 
 // Code adapted from https://editor.p5js.org/cigno5/sketches/PqB9CEnBp
@@ -111,37 +111,37 @@ function setup() {
   console.log(easycam.getState());
 
   orbit1 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 600, 680);
-  orbit1.obj.push(new Dot(0, 0.17, 600, 680, mercury_texture, sun_size*0.28, "mercur"));
+  orbit1.obj.push(new Dot(0, 0.17, 600, 680, mercury_texture, sun_size*0.18, "mercur"));
   orbits.push(orbit1);
 
   orbit2 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 900, 980);
-  orbit2.obj.push(new Dot(0, 0.13,  900, 980, venus_texture, sun_size*0.35,"venus"));
+  orbit2.obj.push(new Dot(0, 0.13,  900, 980, venus_texture, sun_size*0.25,"venus"));
   orbits.push(orbit2);
 
   orbit3 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 1500, 1580);
-  orbit3.obj.push(new Dot(0, 0.11, 1500, 1580, earth_texture, sun_size*0.36, "earth"));
+  orbit3.obj.push(new Dot(0, 0.11, 1500, 1580, earth_texture, sun_size*0.16, "earth"));
   orbits.push(orbit3);
 
   orbit4 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 1900, 1980);
-  orbit4.obj.push(new Dot(0, 0.09, 1900, 1980, mars_texture, sun_size*0.30, "mars"));
+  orbit4.obj.push(new Dot(0, 0.09, 1900, 1980, mars_texture, sun_size*0.10, "mars"));
   orbits.push(orbit4);
 
   orbit5 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 2700, 2780);
-  orbit5.obj.push(new Dot(0, 0.05, 2700, 2780, jupiter_texture, sun_size*0.75, "jupiter"));
+  orbit5.obj.push(new Dot(0, 0.05, 2700, 2780, jupiter_texture, sun_size*0.55, "jupiter"));
   orbits.push(orbit5);
 
   orbit6 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 3000, 3080);
   saturn_ring = new Ring(190, 0, 0.1,  3000, 3080, saturn_ring_texture );
-  orbit6.obj.push(new Dot(0, 0.03,  3000, 3080, saturn_texture, sun_size*0.73, "saturn"));
+  orbit6.obj.push(new Dot(0, 0.03,  3000, 3080, saturn_texture, sun_size*0.53, "saturn"));
   orbit6.obj.push(saturn_ring);
   orbits.push(orbit6);
 
   orbit7 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 4000, 4080);
-  orbit7.obj.push(new Dot(0, 0.02,  4000, 4080, uranus_texture, sun_size*0.42, "uranus"));
+  orbit7.obj.push(new Dot(0, 0.02,  4000, 4080, uranus_texture, sun_size*0.22, "uranus"));
   orbits.push(orbit7);
 
   orbit8 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 4900, 4980);
-  orbit8.obj.push(new Dot(0, 0.02, 4900, 4980, neptune_texture, sun_size*0.41, "neptune"));
+  orbit8.obj.push(new Dot(0, 0.02, 4900, 4980, neptune_texture, sun_size*0.21, "neptune"));
   orbits.push(orbit8);
 }
 
@@ -283,7 +283,11 @@ function draw() {
       }, 100);
       break;
     default:
-      easycam.setCenter([0,0,0]);
+      easycam.setState({
+        distance: 850,
+        center: [0, 0, 0],
+        rotation: [0.5, -0.15, 0.77, 0.3],
+      });
       break;
   }
 
@@ -291,21 +295,18 @@ function draw() {
   image(stars, 0, 0);
   endHUD();
   angleMode(DEGREES);
-  //background(0);
 
   ambientLight(60, 60, 60);
-  pointLight(255, 255, 255, 0, 0, 0);
+  pointLight((255,255,255), 255, 255, 0, 0, 0);
   push();
   noStroke();
-  //strokeWeight(0.5);
-  //stroke("purple");
   rotateZ(frameCount*0.6)
   texture(sun_texture);
-  sphere(150);
+  textureMode(IMAGE);
+  
+  sphere(sun_size);
+  pointLight((255,255,255), 255, 255, 150, 150, 150);
   pop();
-  // push();
-  // position(10,10);
-  // grid({ style: Tree.SOLID });
   orbits.forEach(
     (o) =>{
       o.draw() 
