@@ -1,4 +1,4 @@
-const sun_size = 100
+const sun_size = 70
 const earth_speed = 100
 
 // Code adapted from https://editor.p5js.org/cigno5/sketches/PqB9CEnBp
@@ -111,37 +111,37 @@ function setup() {
   console.log(easycam.getState());
 
   orbit1 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 600, 680);
-  orbit1.obj.push(new Dot(0, 0.05, 600, 680, mercury_texture, sun_size*0.18, "mercur"));
+  orbit1.obj.push(new Dot(0, 0.17, 600, 680, mercury_texture, sun_size*0.28, "mercur"));
   orbits.push(orbit1);
 
   orbit2 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 900, 980);
-  orbit2.obj.push(new Dot(0, 0.048,  900, 980, venus_texture, sun_size*0.25,"venus"));
+  orbit2.obj.push(new Dot(0, 0.13,  900, 980, venus_texture, sun_size*0.35,"venus"));
   orbits.push(orbit2);
 
   orbit3 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 1500, 1580);
-  orbit3.obj.push(new Dot(0, 0.075, 1500, 1580, earth_texture, sun_size*0.26, "earth"));
+  orbit3.obj.push(new Dot(0, 0.11, 1500, 1580, earth_texture, sun_size*0.36, "earth"));
   orbits.push(orbit3);
 
   orbit4 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 1900, 1980);
-  orbit4.obj.push(new Dot(0, 0.06, 1900, 1980, mars_texture, sun_size*0.20, "mars"));
+  orbit4.obj.push(new Dot(0, 0.09, 1900, 1980, mars_texture, sun_size*0.30, "mars"));
   orbits.push(orbit4);
 
   orbit5 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 2700, 2780);
-  orbit5.obj.push(new Dot(0, 0.15, 2700, 2780, jupiter_texture, sun_size*0.65, "jupiter"));
+  orbit5.obj.push(new Dot(0, 0.05, 2700, 2780, jupiter_texture, sun_size*0.75, "jupiter"));
   orbits.push(orbit5);
 
   orbit6 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 3000, 3080);
   saturn_ring = new Ring(190, 0, 0.1,  3000, 3080, saturn_ring_texture );
-  orbit6.obj.push(new Dot(0, 0.13,  3000, 3080, saturn_texture, sun_size*0.63, "saturn"));
+  orbit6.obj.push(new Dot(0, 0.03,  3000, 3080, saturn_texture, sun_size*0.73, "saturn"));
   orbit6.obj.push(saturn_ring);
   orbits.push(orbit6);
 
   orbit7 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 4000, 4080);
-  orbit7.obj.push(new Dot(0, 0.09,  4000, 4080, uranus_texture, sun_size*0.32, "uranus"));
+  orbit7.obj.push(new Dot(0, 0.02,  4000, 4080, uranus_texture, sun_size*0.42, "uranus"));
   orbits.push(orbit7);
 
   orbit8 = new Orbit(0, 0, 0, 0.5, 0.5, 0.5, 4900, 4980);
-  orbit8.obj.push(new Dot(0, 0.08, 4900, 4980, neptune_texture, sun_size*0.31, "neptune"));
+  orbit8.obj.push(new Dot(0, 0.02, 4900, 4980, neptune_texture, sun_size*0.41, "neptune"));
   orbits.push(orbit8);
 }
 
