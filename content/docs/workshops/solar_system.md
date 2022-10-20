@@ -79,7 +79,7 @@ Para la práctica #2 del curso de computación visual se presenta un sistema sol
 {{<hint info >}}
 ### **!Ponlo a prueba!** ⚡
 
-La implentación puedes hacer uso de:
+Puedes hacer uso de:
 
 *   Select para acercarte al planeta que desees.
 *   Ubícate en el planeta que desees para obtener información del planeta.
