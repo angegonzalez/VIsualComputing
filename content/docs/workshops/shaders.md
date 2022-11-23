@@ -1,5 +1,7 @@
 # Image processing
 {{<p5-iframe sketch="/VisualComputing/sketches/workshops/shaders/imageProcessing.js" lib1="https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.js" width="750" height="625" >}}
+# Photomosaic 
+{{<p5-iframe sketch="/VisualComputing/sketches/workshops/shaders/photoMosaic.js" lib1="https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.js" width="750" height="625" >}}
 <!-- # Color blending en suma
 
 {{<p5-iframe sketch="/VisualComputing/sketches/workshops/shaders/colorBlendingSum.js" lib1="https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.js" width="625" height="625" >}} -->

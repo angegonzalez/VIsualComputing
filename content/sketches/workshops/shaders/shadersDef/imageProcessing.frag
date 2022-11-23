@@ -94,7 +94,7 @@ void main(){
         texel = withFilter ? vec4(0.1, 0.1, 0.1, 1.0): texel; 
 
     if(mouse_dist<.2)
-        texel =  withFilter ?  filter : texel;
+        texel =  withFilter ?  filter : texel;  
 
     if(mouse_dist<.2)
         texel =  withLuma ?  vec4((vec3(luma(texel.rgb))), 1.0) : texel;
