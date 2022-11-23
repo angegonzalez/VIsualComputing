@@ -4,6 +4,7 @@ let filter;
 let blurring = [0.86,0.86,0.86,0.86,0.86,0.23,0.86,0.86,0.86];
 let kk1 = [0,0,1, 0,0.235543,0.98453, 0.543, 0, 1];
 let kk2 = [0,0,1,0,0,1,1,0,1];
+let kk3 = [0,0625,2/16,1/16,2/16,4/16,2/16,1/16,2/16,1/16];
 
 function preload() {
   filtersShader = readShader('/VisualComputing/sketches/workshops/shaders/shadersDef/imageProcessing.frag',
@@ -21,8 +22,8 @@ function setup() {
   magnifier = createCheckbox('magnifier', false);
   luma = createCheckbox('luma', false);
 
-  filter.position(10, 10);  
-  filter.style('color', 'white');
+    filter.position(10, 10);  
+    filter.style('color', 'white');
 
   magnifier.position(10, 30);  
   magnifier.style('color', 'white');
