@@ -24,7 +24,7 @@ uniform float iFrameRate;// shader frame rate
 uniform int iFrame;// shader playback frame
 uniform float iChannelTime[4];// channel playback time (in seconds)
 uniform vec3 iChannelResolution[4];// channel resolution (in pixels)
-uniform vec4 iMouse;// mouse pixel coords. xy: current (if MLB down), zw: click
+uniform vec2 u_mouse;// mouse pixel coords. xy: current (if MLB down), zw: click
 uniform vec4 iDate;// (year, month, day, time in seconds)
 uniform float iSampleRate;
 
@@ -67,13 +67,13 @@ void main(){
     }
     
     vec2 uv = texcoords2.xy;
-    vec2 mouse = iMouse.xy;
+    vec2 mouse = u_mouse.xy;
     
     if(mouse == vec2(0.0))
         mouse = iResolution.xy/2.0;
     
     //UV coordinates of mouse
-    vec2 mouse_uv = mouse/iResolution.y;
+    vec2 mouse_uv = mouse/iResolution.xy;
     
     //Distance to mouse
     float mouse_dist = distance(uv,mouse_uv);

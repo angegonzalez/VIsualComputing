@@ -102,7 +102,7 @@ function drawSelector() {
   selector.option("top sobel");
   selector.option("custom");
   selector.selected("blur");
-  selector.changed(changeMatrix);
+
 }
 
 function drawImageSelector() {

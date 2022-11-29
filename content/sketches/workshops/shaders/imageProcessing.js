@@ -1,10 +1,12 @@
 let lumaShader;
+let filtersShader;
 let img;
 let filter;
-let blurring = [0.86,0.86,0.86,0.86,0.86,0.23,0.86,0.86,0.86];
-let kk1 = [0,0,1, 0,0.235543,0.98453, 0.543, 0, 1];
-let kk2 = [0,0,1,0,0,1,1,0,1];
-let kk3 = [0,0625,2/16,1/16,2/16,4/16,2/16,1/16,2/16,1/16];
+let mode;
+let sharpen = [0,-1,0,-1,5,-1,0,-1,0];
+let box_blur = [1/9,1/9,1/9,1/9,1/9,1/9,1/9,1/9,1/9];
+let ridge_detection = [-1,-1,-1,-1,8,-1,-1,-1,-1];
+let blurring = [1/16,2/16,1/16,2/16,4/16,2/16,1/16,2/16,1/16];
 
 function preload() {
   filtersShader = readShader('/VisualComputing/sketches/workshops/shaders/shadersDef/imageProcessing.frag',
@@ -22,8 +24,8 @@ function setup() {
   magnifier = createCheckbox('magnifier', false);
   luma = createCheckbox('luma', false);
 
-    filter.position(10, 10);  
-    filter.style('color', 'white');
+  filter.position(10, 10);  
+  filter.style('color', 'white');
 
   magnifier.position(10, 30);  
   magnifier.style('color', 'white');
@@ -31,27 +33,68 @@ function setup() {
   luma.position(10, 50);  
   luma.style('color', 'white');
 
-  filter.input(() => filtersShader.setUniform('withFilter', filter.checked() ));
-  magnifier.input(() => filtersShader.setUniform('withMagnifier', magnifier.checked()));
-  luma.input(() => filtersShader.setUniform('withLuma', luma.checked()));
-
-  filtersShader.setUniform('texture', img);
-  filtersShader.setUniform('iResolution',[700,500]);
-  emitTexOffset(filtersShader, img, ['texOffset'])
-  
   mode = createSelect();
   mode.position(10, 85);
   mode.option('blurring');
-  mode.option('filter1');
-  mode.option('filter2');
+  mode.option('sharpen');
+  mode.option('box_blur');
+  mode.option('ridge_detection');
   mode.option('none');
   mode.selected('none');
-  filtersShader.setUniform('mask1',blurring);
+  
+  filter.input(() => filtersShader.setUniform('withFilter', filter.checked() ));
+  magnifier.input(() => filtersShader.setUniform('withMagnifier', magnifier.checked()));
+  luma.input(() => filtersShader.setUniform('withLuma', luma.checked()));
+  
+
+  emitMousePosition(filtersShader, [uniform = 'u_mouse'])
+
+  filtersShader.setUniform('texture', img);
+  filtersShader.setUniform('iResolution',[700,500]);
+  filtersShader.setUniform('iResolution',[700,500]);
+  emitTexOffset(filtersShader, img, ['texOffset'])
+  
+  
 }
 
 function draw() {
   background(0);
-  filtersShader.setUniform('iMouse', [mouseX, mouseY]);
+  filtersShader.setUniform('u_mouse', [mouseX, mouseY]);
   quad(-width / 2, -height / 2, width / 2, -height / 2,
         width / 2, height / 2, -width / 2, height / 2);
+  if(mode.value()== 'sharpen'){
+    filtersShader.setUniform('mask1', sharpen);
+  }
+  else if(mode.value()== 'blurring'){
+    filtersShader.setUniform('mask1', blurring);
+  }
+  else if(mode.value()== 'box_blur'){
+    filtersShader.setUniform('mask1', box_blur);
+  }
+  else if(mode.value()== 'ridge_detection'){
+    filtersShader.setUniform('mask1', ridge_detection);
+  }
+  else{
+    filtersShader.setUniform('mask1', [1,0,0,0,1,0,0,0,1]);
+  }
 }
+
+// function changeFilter(){
+
+//   switch(mode.value()){
+//     case 'blurring':
+//       filtersShader.setUniform('mask1',blurring);
+//       console.log(blurring)
+//       case 'sharpen':
+//         filtersShader.setUniform('mask1',sharpen);
+//         console.log(mode.value())
+//         console.log(sharpen)
+//     case 'box_blur':
+//       filtersShader.setUniform('mask1',box_blur);
+//       console.log(mode.value())
+//     case 'ridge_detection':
+//       filtersShader.setUniform('mask1',ridge_detection);
+//       console.log(mode.value())
+//   }
+
+// }
