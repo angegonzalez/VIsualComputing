@@ -1,14 +1,14 @@
 'use strict';
 
 let image_src;
-let video_src;
+let video;
 let mosaic;
 // ui
 let resolution;
-let video_on;
 let mode;
 let keys;
 let paintings = [];
+let camera
 
 function preload() {
   // paintings are stored locally in the /sketches/shaders/paintings dir
@@ -56,6 +56,16 @@ function setup() {
 
   image_src = paintings[0]
   image.selected("0")
+
+  video = createCapture(VIDEO);
+  video.size(640, 480);
+  video.hide();
+
+  camera = createCheckbox('camera', true);
+  camera.position(10, 140);  
+  camera.style('color', 'white');
+  camera.changed(()=> camera = !camera)
+
 }
 
 function draw() {
@@ -64,9 +74,16 @@ function draw() {
     image_src = paintings[image.value()]
   });
 
+  if(camera){
+    mosaic.setUniform('source', video);
+    mosaic.setUniform('palette', video);
+  }
+  else{
+    mosaic.setUniform('source', image_src);
+    mosaic.setUniform('palette', image_src);
+  }
 
-  mosaic.setUniform('source', image_src);
-  mosaic.setUniform('palette', image_src);
+
 
   beginShape();
   vertex(-1, -1, 0, 0, 1);
