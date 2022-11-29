@@ -206,9 +206,18 @@ void main(){
 
 ```
 
-# Photomosaic 
+# Pixelator  
 {{<p5-iframe sketch="/VisualComputing/sketches/workshops/shaders/photoMosaic.js" lib1="https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.js" width="750" height="625" >}}
 
+El pixelator usa los conceptos de coherencia espacial para comprimir y de alguna manera bajar la resolucion en un texel.
+Aqui aplicamos el concepto a mas de 30 imagenes y dejamos planteada la base para la construccion de un fotomosaico, pero por tiempo, no se pudo desarrollar completamente. 
+
+# Procedural texturing  
+{{<p5-iframe sketch="/VisualComputing/sketches/workshops/shaders/truchet.js" lib1="https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.js" width="750" height="625" >}}
+
+La meta en procedural texturing es generar una textura usando un algoritmo en el que se pueda mapear el resultado a una figura como una textura. En el precedural texturing requerimos objeto de bufer (en p5 seria un objeto de tipo `p5.Graphics`)
+
+Aqui aplicamos un algoritmo para generar las figuras y luego pintarlas como una textura al clindro 
 
 # Conclusiones
 
