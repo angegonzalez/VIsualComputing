@@ -206,14 +206,14 @@ void main(){
 
 ```
 
-# Pixelator  
-{{<p5-iframe sketch="/VisualComputing/sketches/workshops/shaders/photoMosaic.js" lib1="https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.js" width="750" height="625" >}}
+# Photomosaic and pixelator  
+{{<p5-iframe sketch="/VisualComputing/sketches/workshops/shaders/photoMosaic.js" lib1="https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.js" lib2="https://cdn.jsdelivr.net/gh/objetos/p5.quadrille.js/p5.quadrille.min.js" width="750" height="625" >}}
 
 El pixelator usa los conceptos de coherencia espacial para comprimir y de alguna manera bajar la resolucion en un texel.
 Aqui aplicamos el concepto a mas de 30 imagenes y dejamos planteada la base para la construccion de un fotomosaico, pero por tiempo, no se pudo desarrollar completamente. 
 
-# Pixelator implementado en software
-{{<p5-iframe sketch="/VisualComputing/sketches/workshops/shaders/pixelatorSoftware.js" width="750" height="625" >}}
+<!-- # Pixelator implementado en software
+{{<p5-iframe sketch="/VisualComputing/sketches/workshops/shaders/pixelatorSoftware.js" width="750" height="625" >}} -->
 
 
 # Procedural texturing  
